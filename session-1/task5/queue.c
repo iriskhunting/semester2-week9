@@ -24,6 +24,9 @@ Queue *createQueue( void ) {
     new->data = calloc(new->size,sizeof(Data *));  // allocate an initial block for queue storage
 
     // set initial values for back, front and length
+    new->back = 0;
+    new->front = 0;
+    new->length = 0;
 
     return new;
 }
@@ -45,6 +48,9 @@ void join( Queue *queue, Data *new ) {
     // add new item at the back
     // increment back index
     // increment length
+    queue->data[queue->back] = new;
+    queue->back++;
+    queue->length++;
 
     return;
 }
@@ -57,8 +63,11 @@ Data *leave( Queue *queue ) {
     // remove front item
     // increment front index
     // decrement length
+    Data *front_item = queue->data[queue->front];
+    queue->front++;
+    queue->length--;
 
-    return new;
+    return front_item;
 }
 
 /*
